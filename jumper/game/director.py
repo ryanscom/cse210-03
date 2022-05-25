@@ -13,6 +13,9 @@ class Director:
         is_playing (boolean): Whether or not to keep playing.
         secret_word (SecretWord): The game's secret word.
         terminal_service: For getting and displaying information on the terminal.
+
+        guess (str): User's letter guess
+        updated_secret_word (str): The hidden word. IF the word is SECRET an eanample could be as follows..' EXAMPLE:  S _ C R _ T      
     """
 
     def __init__(self):
@@ -41,7 +44,8 @@ class Director:
             self._do_outputs()
 
     def _get_inputs(self):
-        """Gets a ramdom secret word. Gets players letter guess
+        """ Displays intro message from jumper class. Gets a ramdom secret word from word class. Gets players letter guess. 
+        Gets a boolean to turn off into message. 
 
         Args:
             self (Director): An instance of Director.
@@ -64,6 +68,7 @@ class Director:
 
         Args:
             self (Director): An instance of Director.
+            updated_secret_word (str): The hidden word. IF the word is SECRET an eanample could be as follows..' EXAMPLE:  S _ C R _ T
         """
         
         self._updated_hidden_word = self._secret_word.update_hidden_word(self._guess)
@@ -71,25 +76,32 @@ class Director:
          
     def _do_outputs(self):
  
-        """desplayes secret word.  Displays jumper text art
+        """desplayes secret word.  Displays jumper text art. Displays missed letters list. 
+        Gets boolean switches for winning the game and if the users guess was correct or not. 
+        End game conditions.
 
         Args:
             self (Director): An instance of Director.
+            word (str): Holds the random word (NOT HIDDEN)    
+            missed_letters (list): Holds the letters the user guessed that are not in the word
+            guess_right_wrong (bool): Shows if guess was correct or not
+            won_lost (bool):  Shows if user one or not. Triggers when all letters in word are guessed  
+            guess (str): Users letter guess
+            message (str): Message to be displayed taken from jumper class.
+            guesses (int): Number of guesses the user has left
         """
         word = self._secret_word.get_word()
         missed_letters = self._secret_word.get_missed_letters()
         guess_right_wrong = self._secret_word.get_guessed_bool()
         won_lost = self._secret_word.get_won_bool()
         
-
-        # print(F"the missed letters list {missed_letters}")
         self._terminal_service.write_text(f"\nThe wrong letters you have used so far are: {missed_letters}")
         print(F"The hidden word is {word}")
         # print(self._updated_hidden_word)
         # print(f"The guess was {guess_right_wrong}")
         # print(f"won {won_lost}")
         
-        guess = self._guess.upper() # make guess uppercase incase user typed lowercase
+        guess = self._guess.upper() # make guess uppercase 
         message = self._jumper.get_messages(guess_right_wrong, won_lost, self._updated_hidden_word, guess, word)
 
         self._terminal_service.write_text(message)

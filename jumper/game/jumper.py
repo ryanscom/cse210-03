@@ -5,7 +5,7 @@ class Jumper:
     
     Attributes:
         _guesses (int): The number of guesses left
-        _jumper (str): The text art representation of the paratrooper at different stages of parachute failer.
+        _message (str): The text art representation of the paratrooper at different stages of parachute failer allong with message.
     """
 
     def __init__(self):
@@ -18,10 +18,16 @@ class Jumper:
         self._message = ""
 
     def get_guesses(self):
+        """Returns number of guesses
+        
+        """
 
         return self._guesses
 
     def get_intro_message(self):
+        """ Returns jumper intro text art along with message. 
+        
+        """
 
         self._message = (f"""\nThe Parashooter jumped out of a plain! If you can guess the hidden word they will land safely. 
   _________
@@ -41,10 +47,11 @@ class Jumper:
 
 
     def get_messages(self, guess_right_wrong, won_lost, updated_hidden_word, letter = "", word = ""):
-        """Method to retrieve messages from the jumper. 
+        """Method to retrieve messages. Returns jumper text art and message
         
         Args:
             self (Jumper): An instance of Jumper.
+            message (str): Jumper text art and message
         """
         if won_lost == True:
             self._message = (f"""Congratulations, you guessed the word! You win!"
